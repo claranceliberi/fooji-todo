@@ -15,8 +15,8 @@ async function bootstrap() {
     .setTitle('Todo App')
     .setDescription('The Todo App api documentation ')
     .setVersion('1.0')
-    .addTag('todo')
-    .addTag('group')
+    .addTag('todos', 'Todo items related endpoints')
+    .addTag('groups', 'Todo group related endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
