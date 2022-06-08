@@ -15,8 +15,8 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  async createBook(@Res() response, @Body() book: Todo) {
-    const newTodo = await this.todoService.createBook(book);
+  async createTodo(@Res() response, @Body() todo: Todo) {
+    const newTodo = await this.todoService.createTodo(todo);
     return response.status(HttpStatus.CREATED).json({
       newTodo,
     });
@@ -25,6 +25,14 @@ export class TodoController {
   @Get()
   async fetchAll(@Res() response) {
     const todos = await this.todoService.findAll();
+    return response.status(HttpStatus.OK).json({
+      todos,
+    });
+  }
+
+  @Get('/:group-id')
+  async fetchAllByGroup(@Res() response, @Param('gorup-id') groupId) {
+    const todos = await this.todoService.findAllByGroup(groupId);
     return response.status(HttpStatus.OK).json({
       todos,
     });

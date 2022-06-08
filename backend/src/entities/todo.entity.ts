@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Group } from './group.entity';
 
 @Entity()
 export class Todo {
@@ -9,5 +10,6 @@ export class Todo {
   name: string;
 
   @Column({ nullable: true })
-  group: string;
+  @ManyToOne(() => Group, (group) => group.todos, { eager: true })
+  group: Group;
 }

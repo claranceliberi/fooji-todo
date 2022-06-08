@@ -1,3 +1,4 @@
+import { GroupModule } from './modules/group.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,6 +15,7 @@ import { pgConfig } from './config';
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '../../.env' }),
     TypeOrmModule.forRoot(pgConfig),
     TodoModule,
+    GroupModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -11,17 +11,23 @@ export class TodoService {
   ) {}
 
   findAll(): Promise<Todo[]> {
-    return this.todoRepository.find();
+    return this.todoRepository.find({});
   }
 
   findOne(id: number): Promise<Todo> {
-    return this.todoRepository.findOne({ where: [{ id }] });
+    return this.todoRepository.findOne({
+      where: [{ id }],
+    });
   }
 
-  createBook(book: Todo): Promise<Todo> {
-    return this.todoRepository.save(book);
+  findAllByGroup(groupdId: number): Promise<Todo[]> {
+    return this.todoRepository.find({ where: { group: { id: groupdId } } });
   }
-  deleteBook(id: number): Promise<DeleteResult> {
+
+  createTodo(todo: Todo): Promise<Todo> {
+    return this.todoRepository.save(todo);
+  }
+  deleteTodo(id: number): Promise<DeleteResult> {
     return this.todoRepository.delete({ id });
   }
 }
