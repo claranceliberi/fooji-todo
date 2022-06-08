@@ -8,6 +8,7 @@ import {
   HttpStatus,
   Get,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { TodoService } from 'src/services/todo.service';
 import {
@@ -50,14 +51,14 @@ export class TodoController {
     });
   }
 
-  @Get('/:group-id')
+  @Get('/:groupId')
   @ApiOkResponse({
     description: 'Todo item has been successfully retrieved by group id.',
     isArray: true,
     type: Todo,
   })
   @ApiOperation({ summary: 'Get All todo items that belongs to certain group' })
-  async fetchAllByGroup(@Res() response, @Param('group-id') groupId) {
+  async fetchAllByGroup(@Res() response, @Param('groupId') groupId) {
     const todos = await this.todoService.findAllByGroup(groupId);
     return response.status(HttpStatus.OK).json({
       todos,
@@ -69,9 +70,22 @@ export class TodoController {
     type: Todo,
     description: 'Todo item has been successfully retrieved by todo id.',
   })
-  @ApiOperation({ summary: 'Get one todo item by its id' })
+  @ApiOperation({ summary: 'Get todo item by its id' })
   async findById(@Res() response, @Param('id') id) {
     const todo = await this.todoService.findOne(id);
+    return response.status(HttpStatus.OK).json({
+      todo,
+    });
+  }
+
+  @Delete('/:id')
+  @ApiOkResponse({
+    type: Todo,
+    description: 'Todo item has been successfully deleted ',
+  })
+  @ApiOperation({ summary: 'Delete todo item by its id' })
+  async delete(@Res() response, @Param('id') id) {
+    const todo = await this.todoService.deleteTodo(id);
     return response.status(HttpStatus.OK).json({
       todo,
     });
