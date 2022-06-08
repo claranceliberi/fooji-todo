@@ -4,16 +4,18 @@ services:
   app-dev:
     container_name: api_dev
     build:
-      context: .
+      context: ./backend
       target: development
       dockerfile: ./backend/Dockerfile
     volumes:
-      - .:/usr/src/app
+      - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
     command: npm run start:debug
+    environment:
+      SERVER_PORT: 5000
     env_file:
       - .env
     networks:
@@ -26,16 +28,18 @@ services:
   app-prod:
     container_name: api_prod
     build:
-      context: .
+      context: ./backend
       target: production
       dockerfile: ./backend/Dockerfile
     volumes:
-      - .:/usr/src/app
+      - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
     command: npm run start:prod
+    environment:
+      SERVER_PORT: 5000
     env_file:
       - .env
     networks:
