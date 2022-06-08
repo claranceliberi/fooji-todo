@@ -46,9 +46,7 @@ export class TodoController {
   @ApiOperation({ summary: 'Get All todo items' })
   async fetchAll(@Res() response) {
     const todos = await this.todoService.findAll();
-    return response.status(HttpStatus.OK).json({
-      todos,
-    });
+    return response.status(HttpStatus.OK).json(todos);
   }
 
   @Get('/:groupId')
@@ -60,9 +58,7 @@ export class TodoController {
   @ApiOperation({ summary: 'Get All todo items that belongs to certain group' })
   async fetchAllByGroup(@Res() response, @Param('groupId') groupId) {
     const todos = await this.todoService.findAllByGroup(groupId);
-    return response.status(HttpStatus.OK).json({
-      todos,
-    });
+    return response.status(HttpStatus.OK).json(todos);
   }
 
   @Get('/:id')
@@ -73,9 +69,7 @@ export class TodoController {
   @ApiOperation({ summary: 'Get todo item by its id' })
   async findById(@Res() response, @Param('id') id) {
     const todo = await this.todoService.findOne(id);
-    return response.status(HttpStatus.OK).json({
-      todo,
-    });
+    return response.status(HttpStatus.OK).json(todo);
   }
 
   @Delete('/:id')
@@ -86,8 +80,6 @@ export class TodoController {
   @ApiOperation({ summary: 'Delete todo item by its id' })
   async delete(@Res() response, @Param('id') id) {
     const todo = await this.todoService.deleteTodo(id);
-    return response.status(HttpStatus.OK).json({
-      todo,
-    });
+    return response.status(HttpStatus.OK).json(todo);
   }
 }

@@ -30,9 +30,7 @@ export class GroupController {
   @ApiOperation({ summary: 'create todo group' })
   async createGroup(@Res() response, @Body() group: CreateGroupDto) {
     const newGroup = await this.groupService.createGroup(group);
-    return response.status(HttpStatus.CREATED).json({
-      newGroup,
-    });
+    return response.status(HttpStatus.CREATED).json(newGroup);
   }
 
   @Get()
@@ -44,9 +42,7 @@ export class GroupController {
   @ApiOperation({ summary: 'get alll todo groups' })
   async fetchAll(@Res() response) {
     const groups = await this.groupService.findAll();
-    return response.status(HttpStatus.OK).json({
-      groups,
-    });
+    return response.status(HttpStatus.OK).json(groups);
   }
 
   @Get('/:id')
@@ -57,8 +53,6 @@ export class GroupController {
   @ApiOperation({ summary: 'get all todo grup by id' })
   async findById(@Res() response, @Param('id') id) {
     const group = await this.groupService.findOne(id);
-    return response.status(HttpStatus.OK).json({
-      group,
-    });
+    return response.status(HttpStatus.OK).json(group);
   }
 }
