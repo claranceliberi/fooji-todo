@@ -1,3 +1,4 @@
+import { CreateGroupDto } from './../entities/dto/group.dto';
 import {
   Controller,
   Post,
@@ -7,7 +8,6 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-import { Group } from 'src/entities/group.entity';
 import { GroupService } from 'src/services/group.service';
 
 @Controller('groups')
@@ -15,7 +15,7 @@ export class GroupController {
   constructor(private readonly groupService: GroupService) {}
 
   @Post()
-  async createGroup(@Res() response, @Body() group: Group) {
+  async createGroup(@Res() response, @Body() group: CreateGroupDto) {
     const newGroup = await this.groupService.createGroup(group);
     return response.status(HttpStatus.CREATED).json({
       newGroup,

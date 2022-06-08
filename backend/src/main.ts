@@ -16,11 +16,12 @@ async function bootstrap() {
     .setDescription('The Todo App api documentation ')
     .setVersion('1.0')
     .addTag('todo')
+    .addTag('group')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api/v1/docs', app, document);
 
   await app.listen(process.env.SERVER_PORT || 3031);
 }

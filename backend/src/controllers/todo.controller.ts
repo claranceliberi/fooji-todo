@@ -1,3 +1,4 @@
+import { CreateTodoDto } from './../entities/dto/todo.dto';
 import {
   Controller,
   Post,
@@ -7,7 +8,6 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-import { Todo } from 'src/entities/todo.entity';
 import { TodoService } from 'src/services/todo.service';
 
 @Controller('todos')
@@ -15,7 +15,7 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  async createTodo(@Res() response, @Body() todo: Todo) {
+  async createTodo(@Res() response, @Body() todo: CreateTodoDto) {
     const newTodo = await this.todoService.createTodo(todo);
     return response.status(HttpStatus.CREATED).json({
       newTodo,

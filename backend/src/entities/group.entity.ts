@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Todo } from './todo.entity';
 
-@Entity()
+@Entity('group')
 export class Group {
   @PrimaryGeneratedColumn()
   id: number;

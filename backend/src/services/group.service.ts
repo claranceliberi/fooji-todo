@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateGroupDto } from 'src/entities/dto/group.dto';
 import { Group } from 'src/entities/group.entity';
 import { DeleteResult, Repository } from 'typeorm';
 
@@ -18,7 +19,7 @@ export class GroupService {
     return this.groupRepository.findOne({ where: [{ id }] });
   }
 
-  createGroup(group: Group): Promise<Group> {
+  createGroup(group: CreateGroupDto): Promise<Group> {
     return this.groupRepository.save(group);
   }
   deleteGroup(id: number): Promise<DeleteResult> {
