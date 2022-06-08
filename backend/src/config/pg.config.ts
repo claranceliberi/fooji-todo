@@ -11,5 +11,5 @@ export const pgConfig: TypeOrmModuleOptions = {
   autoLoadEntities: true,
   synchronize: true,
   migrations: ['dist/src/db/migrations.js'],
-  cli: { migrationsDir: 'src/db/migrations' },
+  // cli: { migrationsDir: 'src/db/migrations' },
 };
