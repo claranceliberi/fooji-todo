@@ -9,7 +9,9 @@ export class Todo {
   @Column()
   name: string;
 
-  @Column({ nullable: true })
-  @ManyToOne(() => Group, (group) => group.todos, { eager: true })
+  @ManyToOne(() => Group, (group) => group.todos, {
+    eager: true,
+    nullable: true,
+  })
   group: Group;
 }

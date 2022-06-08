@@ -14,8 +14,6 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
     command: npm run start:debug
-    environment:
-      SERVER_PORT: 5000
     env_file:
       - .env
     networks:
