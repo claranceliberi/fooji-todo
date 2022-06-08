@@ -12,10 +12,10 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()
-    .setTitle('App')
-    .setDescription('The App api documentation ')
+    .setTitle('Todo App')
+    .setDescription('The Todo App api documentation ')
     .setVersion('1.0')
-    .addTag('app')
+    .addTag('todo')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

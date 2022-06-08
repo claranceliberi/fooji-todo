@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LibraryModule } from './modules/library.module';
+import { TodoModule } from './modules/todo.module';
 import { ConfigModule } from '@nestjs/config';
 import { pgConfig } from './config';
 
@@ -11,9 +11,9 @@ import { pgConfig } from './config';
  */
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '../../.env' }),
     TypeOrmModule.forRoot(pgConfig),
-    LibraryModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
