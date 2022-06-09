@@ -3,7 +3,7 @@ import { CreateTodoDto } from './../entities/dto/todo.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Todo } from 'src/entities/todo.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, IsNull, Not, Repository } from 'typeorm';
 
 @Injectable()
 export class TodoService {
@@ -23,6 +23,13 @@ export class TodoService {
   }
 
   findAllByGroup(groupdId: number): Promise<Todo[]> {
+    if (groupdId == 0) {
+      console.log('-----------------------------------------------');
+      return this.todoRepository
+        .createQueryBuilder('todo')
+        .where('todo.groupId IS NULL')
+        .getMany();
+    }
     return this.todoRepository.find({ where: { group: { id: groupdId } } });
   }
 
