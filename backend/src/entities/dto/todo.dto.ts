@@ -5,5 +5,5 @@ export class CreateTodoDto {
   name: string;
 
   @ApiProperty({ nullable: true })
-  group_id: number;
+  group_id?: number;
 }

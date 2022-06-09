@@ -4,7 +4,6 @@ import { Test } from '@nestjs/testing';
 import { GroupService } from 'src/services/group.service';
 import { TodoService } from 'src/services/todo.service';
 import { TodoController } from './todo.controller';
-import { createResponse } from 'node-mocks-http';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from 'src/utils';
 
@@ -51,6 +50,35 @@ describe('Todo items controller', () => {
         .mockImplementation(() => Promise.resolve(result));
 
       const res = await todoController.fetchAll();
+      expect(res).toBe(result);
+    });
+  });
+
+  describe('find One', () => {
+    it('shoudl return an one of todo item', async () => {
+      const result = { id: 1, name: 'test', group: null };
+
+      jest
+        .spyOn(todoService, 'findOne')
+        .mockImplementation(() => Promise.resolve(result));
+
+      const res = await todoController.findById(result.id);
+      expect(res).toBe(result);
+    });
+  });
+
+  describe('find One', () => {
+    it('shoudl return an one of todo item', async () => {
+      const result = { id: 1, name: 'test item', group: null };
+
+      jest
+        .spyOn(todoService, 'createTodo')
+        .mockImplementation(() => Promise.resolve(result));
+
+      const res = await todoController.createTodo({
+        name: result.name,
+        group_id: 0,
+      });
       expect(res).toBe(result);
     });
   });
