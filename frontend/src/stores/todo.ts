@@ -1,3 +1,4 @@
+import { groupService } from "./../services/group.service";
 import { todoService } from "./../services/todo.service";
 import type { TodoInput, Todo } from "@/types/index";
 import { defineStore } from "pinia";
@@ -11,7 +12,9 @@ export const useTodoStore = defineStore({
   state: (): TodoState => ({
     todos: [],
   }),
-
+  getters: {
+    getTodos: (state: TodoState) => state.todos,
+  },
   actions: {
     async addTodo(payload: TodoInput) {
       return await todoService.createTodo(payload);

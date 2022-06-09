@@ -32,7 +32,7 @@ services:
       - ./frontend:/usr/src/frontend
       - /usr/src/frontend/node_modules
     ports:
-      - ${WEB_PORT}:${WEB_PORT}
+      - ${WEB_PORT}:3000
       - 9228:9228
     env_file:
       - .env
