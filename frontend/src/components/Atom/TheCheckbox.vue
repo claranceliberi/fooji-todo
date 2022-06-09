@@ -1,10 +1,45 @@
+<script lang="ts" setup>
+import { ref } from "vue";
+
+const props = withDefaults(
+  defineProps<{
+    checked: boolean;
+  }>(),
+  {
+    checked: false,
+  }
+);
+
+interface events {
+  (e: "update:checked", value: boolean): void;
+}
+
+const emit = defineEmits<events>();
+
+const _checked = ref(props.checked);
+
+function handleCheck() {
+  const newValue = !_checked.value;
+  _checked.value = newValue;
+  emit("update:checked", newValue);
+}
+</script>
+
 <template>
   <div class="exp">
     <div class="checkbox">
       <form>
         <div>
-          <input type="checkbox" id="check" name="check" value="" />
-          <label for="check"> <span></span> </label>
+          <input
+            type="checkbox"
+            :class="{ active: _checked }"
+            id="check"
+            name="check"
+            value=""
+          />
+          <label @click="handleCheck" for="check">
+            <span></span>
+          </label>
         </div>
       </form>
     </div>
@@ -58,8 +93,8 @@ label {
       background: #fff;
       position: absolute;
       transform: rotate(45deg);
-      top: 13px; // you'll need to experiment with placement depending on the dimensions you've chosen
-      left: 9px; // you'll need to experiment with placement depending on the dimensions you've chosen
+      top: 10px;
+      left: 7px; // you'll need to experiment with placement depending on the dimensions you've chosen
       transition: width 50ms ease 50ms;
       transform-origin: 0% 0%;
     }
@@ -72,8 +107,8 @@ label {
       background: #fff;
       position: absolute;
       transform: rotate(305deg);
-      top: 16px; // you'll need to experiment with placement depending on the dimensions you've chosen
-      left: 10px; // you'll need to experiment with placement depending on the dimensions you've chosen
+      top: 14px;
+      left: 8px; // you'll need to experiment with placement depending on the dimensions you've chosen
       transition: width 50ms ease;
       transform-origin: 0% 0%;
     }
@@ -100,7 +135,7 @@ input[type="checkbox"] {
 
   // Let's add some effects after the checkbox is checked
 
-  &:checked {
+  &.active {
     + label {
       span {
         background-color: #fff;
