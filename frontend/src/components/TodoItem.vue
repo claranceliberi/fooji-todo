@@ -6,7 +6,7 @@ const completed = ref(false);
 </script>
 <template>
   <div
-    class="flex items-center space-x-4 bg-gray-800 w-[25rem] px-2 py-2 rounded"
+    class="flex items-center space-x-4 my-2 bg-gray-800 w-[25rem] px-2 py-2 rounded"
   >
     <div class="opacity-80">
       <TheCheckboxVue />
