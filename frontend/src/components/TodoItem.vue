@@ -1,24 +1,43 @@
 <script setup lang="ts">
+import type { Todo } from "@/types";
 import { ref } from "vue";
 import TheCheckboxVue from "./Atom/TheCheckbox.vue";
 
-const completed = ref(false);
+const props = defineProps<{ item: Todo }>();
+
+interface events {
+  (e: "update", value: Todo): void;
+  (e: "delete", value: Todo): void;
+}
+
+const emit = defineEmits<events>();
+
+function handleComplete() {
+  const item = props.item;
+  item.completed = !item.completed;
+
+  emit("update", item);
+}
+
+function handleDelete() {
+  emit("delete", props.item);
+}
 </script>
 <template>
   <div
     class="flex items-center space-x-4 my-2 bg-gray-800 w-[25rem] px-2 py-2 rounded"
   >
     <div class="opacity-80">
-      <TheCheckboxVue />
+      <TheCheckboxVue @click="handleComplete" />
     </div>
     <div
       class="text-gray-50 text-lg flex-1"
-      :class="{ 'line-through text-gray-500': completed }"
+      :class="{ 'line-through text-gray-500': item.completed }"
     >
-      Learning new things
+      {{ item.name }}
     </div>
 
-    <button class="ml-4">
+    <button class="ml-4" @click="handleDelete">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

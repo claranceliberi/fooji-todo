@@ -37,14 +37,6 @@ import GroupItem from "../components/Atom/GroupItem.vue";
         </h2>
         <div>
           <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
-          <TodoItem></TodoItem>
         </div>
       </article>
     </section>
