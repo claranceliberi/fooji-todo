@@ -8,9 +8,10 @@ This is the fooji enginer task , this is simply a todo app
   - Add todo group
   - Add todo item in a group
  
- ### Missing crucial functionalities
+ ### Missing crucial functionalities 
   - Delete todo group with its items
   - Well formated API response
+  Due to timeeeeeeee 🕛
  
  ### Stack
   - Nest.js
