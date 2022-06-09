@@ -2,7 +2,6 @@ import { $axios } from "@/plugins/axios";
 import type { Todo, TodoInput } from "@/types";
 import type { AxiosResponse } from "axios";
 
-
 class TodoService {
   private readonly path = "todos";
 
@@ -24,7 +23,10 @@ class TodoService {
     return await $axios.post(this.path, todo);
   }
   public async deleteTodo(id: number): Promise<AxiosResponse<Todo>> {
-    return await $axios.get(this.path + `/${id}`);
+    return await $axios.delete(this.path + `/${id}`);
+  }
+  public async toggleTodo(id: number): Promise<AxiosResponse<Todo>> {
+    return await $axios.put(this.path + `/${id}`);
   }
 }
 

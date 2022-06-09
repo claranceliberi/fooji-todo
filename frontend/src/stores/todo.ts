@@ -28,5 +28,8 @@ export const useTodoStore = defineStore({
     async deleteTodo(id: number) {
       return await todoService.deleteTodo(id);
     },
+    async toggleTodo(id: number) {
+      return await todoService.toggleTodo(id);
+    },
   },
 });

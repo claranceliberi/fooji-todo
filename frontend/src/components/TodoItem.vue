@@ -25,10 +25,10 @@ function handleDelete() {
 </script>
 <template>
   <div
-    class="flex items-center space-x-4 my-2 bg-gray-800 w-[25rem] px-2 py-2 rounded"
+    class="item flex items-center space-x-4 my-2 bg-gray-800 w-[25rem] px-2 py-2 rounded"
   >
     <div class="opacity-80">
-      <TheCheckboxVue @click="handleComplete" />
+      <TheCheckboxVue :checked="item.completed" @click="handleComplete" />
     </div>
     <div
       class="text-gray-50 text-lg flex-1"
@@ -37,7 +37,7 @@ function handleDelete() {
       {{ item.name }}
     </div>
 
-    <button class="ml-4" @click="handleDelete">
+    <button class="ml-4 close-button" @click="handleDelete">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -53,3 +53,17 @@ function handleDelete() {
     </button>
   </div>
 </template>
+
+<style lang="scss">
+.item {
+  button {
+    display: none;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  &:hover {
+    button {
+      display: block;
+    }
+  }
+}
+</style>

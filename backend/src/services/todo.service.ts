@@ -15,7 +15,7 @@ export class TodoService {
   ) {}
 
   findAll(): Promise<Todo[]> {
-    return this.todoRepository.find({});
+    return this.todoRepository.find({ order: { created_on: 'ASC' } });
   }
 
   findOne(id: number): Promise<Todo> {
@@ -29,12 +29,20 @@ export class TodoService {
   async createTodo(_todo: CreateTodoDto): Promise<Todo> {
     const todo = new Todo();
     todo.name = _todo.name;
+    todo.completed = false;
 
     todo.group = await this.groupRepository.findOne({
       where: { id: _todo.group_id },
     });
     return this.todoRepository.save(todo);
   }
+
+  async toggleTodo(id: number): Promise<Todo> {
+    const todo = await this.todoRepository.findOne({ where: { id: id } });
+    todo.completed = !todo.completed;
+    return this.todoRepository.save(todo);
+  }
+
   deleteTodo(id: number): Promise<DeleteResult> {
     return this.todoRepository.delete({ id });
   }

@@ -14,10 +14,22 @@ const groupStore = useGroupStore();
 async function addGruopItem() {
   await groupStore.addGroup({ name: groupName.value });
   await groupStore.getAllGroupItems();
+  groupName.value = "";
 }
 
 async function addTodoItem() {
   await todoStore.addTodo({ name: todoItemName.value });
+  await todoStore.getAllTodoItems();
+  todoItemName.value = "";
+}
+
+async function deleteTodoItem(id: number) {
+  await todoStore.deleteTodo(id);
+  await todoStore.getAllTodoItems();
+}
+
+async function toggleTodoItem(id: number) {
+  await todoStore.toggleTodo(id);
   await todoStore.getAllTodoItems();
 }
 
@@ -82,6 +94,8 @@ onMounted(async () => {
             v-for="todo in todoStore.todos"
             :key="todo.id"
             :item="todo"
+            @update="() => toggleTodoItem(todo.id)"
+            @delete="() => deleteTodoItem(todo.id)"
           />
         </div>
       </article>

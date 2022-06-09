@@ -10,6 +10,7 @@ import {
   Param,
   Delete,
   HttpCode,
+  Put,
 } from '@nestjs/common';
 import { TodoService } from 'src/services/todo.service';
 import {
@@ -94,5 +95,21 @@ export class TodoController {
   })
   async delete(@Param('id') id) {
     return await this.todoService.deleteTodo(id);
+  }
+
+  @Put('/:id')
+  @ApiOkResponse({
+    type: Todo,
+    description: 'Todo item complete status has been successfully changed ',
+  })
+  @ApiOperation({ summary: 'Toggle todo item by its id' })
+  @ApiParam({
+    name: 'id',
+    type: 'number',
+    example: 1,
+    description: 'id of todo item',
+  })
+  async toggleTodo(@Param('id') id) {
+    return await this.todoService.toggleTodo(id);
   }
 }
