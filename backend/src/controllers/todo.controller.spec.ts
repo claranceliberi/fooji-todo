@@ -43,7 +43,15 @@ describe('Todo items controller', () => {
 
   describe('find All', () => {
     it('shoudl return an array of todos', async () => {
-      const result = [{ id: 1, name: 'test', group: null }];
+      const result = [
+        {
+          id: 1,
+          name: 'test',
+          group: null,
+          created_on: new Date(),
+          completed: false,
+        },
+      ];
 
       jest
         .spyOn(todoService, 'findAll')
@@ -56,7 +64,13 @@ describe('Todo items controller', () => {
 
   describe('find One', () => {
     it('shoudl return an one of todo item', async () => {
-      const result = { id: 1, name: 'test', group: null };
+      const result = {
+        id: 1,
+        name: 'test',
+        group: null,
+        created_on: new Date(),
+        completed: false,
+      };
 
       jest
         .spyOn(todoService, 'findOne')
@@ -69,15 +83,20 @@ describe('Todo items controller', () => {
 
   describe('find One', () => {
     it('shoudl return an one of todo item', async () => {
-      const result = { id: 1, name: 'test item', group: null };
-
+      const result = {
+        id: 1,
+        name: 'test',
+        group: null,
+        created_on: new Date(),
+        completed: false,
+      };
       jest
         .spyOn(todoService, 'createTodo')
         .mockImplementation(() => Promise.resolve(result));
 
       const res = await todoController.createTodo({
         name: result.name,
-        group_id: 0,
+        groupId: 0,
       });
       expect(res).toBe(result);
     });
