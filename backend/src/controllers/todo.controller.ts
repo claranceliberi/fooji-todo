@@ -9,6 +9,7 @@ import {
   Get,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { TodoService } from 'src/services/todo.service';
 import {
@@ -31,11 +32,8 @@ export class TodoController {
     description: 'Todo item has been successfully created.',
   })
   @ApiOperation({ summary: 'create todo item' })
-  async createTodo(@Res() response, @Body() todo: CreateTodoDto) {
-    const newTodo = await this.todoService.createTodo(todo);
-    return response.status(HttpStatus.CREATED).json({
-      newTodo,
-    });
+  async createTodo(@Body() todo: CreateTodoDto) {
+    return await this.todoService.createTodo(todo);
   }
 
   @Get()
@@ -45,9 +43,8 @@ export class TodoController {
     description: 'All Todo items has been successfully retrieved.',
   })
   @ApiOperation({ summary: 'Get All todo items' })
-  async fetchAll(@Res() response) {
-    const todos = await this.todoService.findAll();
-    return response.status(HttpStatus.OK).json(todos);
+  async fetchAll() {
+    return await this.todoService.findAll();
   }
 
   @Get('/group/:groupId')
@@ -63,9 +60,8 @@ export class TodoController {
     example: 1,
     description: 'id of group',
   })
-  async fetchAllByGroup(@Res() response, @Param('groupId') groupId) {
-    const todos = await this.todoService.findAllByGroup(groupId);
-    return response.status(HttpStatus.OK).json(todos);
+  async fetchAllByGroup(@Param('groupId') groupId) {
+    return await this.todoService.findAllByGroup(groupId);
   }
 
   @Get('/:id')
@@ -80,9 +76,8 @@ export class TodoController {
     description: 'Todo item has been successfully retrieved by todo id.',
   })
   @ApiOperation({ summary: 'Get todo item by its id' })
-  async findById(@Res() response, @Param('id') id) {
-    const todo = await this.todoService.findOne(id);
-    return response.status(HttpStatus.OK).json(todo);
+  async findById(@Param('id') id) {
+    return await this.todoService.findOne(id);
   }
 
   @Delete('/:id')
@@ -97,8 +92,7 @@ export class TodoController {
     example: 1,
     description: 'id of todo item',
   })
-  async delete(@Res() response, @Param('id') id) {
-    const todo = await this.todoService.deleteTodo(id);
-    return response.status(HttpStatus.OK).json(todo);
+  async delete(@Param('id') id) {
+    return await this.todoService.deleteTodo(id);
   }
 }

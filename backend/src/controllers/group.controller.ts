@@ -29,9 +29,8 @@ export class GroupController {
     type: Group,
   })
   @ApiOperation({ summary: 'create todo group' })
-  async createGroup(@Res() response, @Body() group: CreateGroupDto) {
-    const newGroup = await this.groupService.createGroup(group);
-    return response.status(HttpStatus.CREATED).json(newGroup);
+  async createGroup(@Body() group: CreateGroupDto) {
+    return await this.groupService.createGroup(group);
   }
 
   @Get()
@@ -41,9 +40,8 @@ export class GroupController {
     description: 'Group has been successfully retrieved.',
   })
   @ApiOperation({ summary: 'get alll todo groups' })
-  async fetchAll(@Res() response) {
-    const groups = await this.groupService.findAll();
-    return response.status(HttpStatus.OK).json(groups);
+  async fetchAll() {
+    return await this.groupService.findAll();
   }
 
   @Get('/:id')
@@ -58,9 +56,7 @@ export class GroupController {
     example: 1,
     description: 'id of group',
   })
-  async findById(@Res() response, @Param('id') id) {
-    console.log(id, '------------------------------');
-    const group = await this.groupService.findOne(id);
-    return response.status(HttpStatus.OK).json(group);
+  async findById(@Param('id') id) {
+    return await this.groupService.findOne(id);
   }
 }
