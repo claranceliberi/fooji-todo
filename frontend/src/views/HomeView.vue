@@ -2,39 +2,54 @@
 import TodoItem from "../components/TodoItem.vue";
 import GroupItem from "../components/Atom/GroupItem.vue";
 import { useTodoStore } from "@/stores/todo";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useGroupStore } from "@/stores/group";
 
 const groupName = ref("");
 const todoItemName = ref("");
+const activeGroup = ref(0);
 
 const todoStore = useTodoStore();
 const groupStore = useGroupStore();
 
 async function addGruopItem() {
   await groupStore.addGroup({ name: groupName.value });
-  await groupStore.getAllGroupItems();
+  await getTodoItems();
   groupName.value = "";
 }
 
 async function addTodoItem() {
-  await todoStore.addTodo({ name: todoItemName.value });
-  await todoStore.getAllTodoItems();
+  if (!activeGroup.value) await todoStore.addTodo({ name: todoItemName.value });
+  else
+    await todoStore.addTodo({
+      name: todoItemName.value,
+      groupId: activeGroup.value,
+    });
+
+  await getTodoItems();
   todoItemName.value = "";
 }
 
 async function deleteTodoItem(id: number) {
   await todoStore.deleteTodo(id);
-  await todoStore.getAllTodoItems();
+  await getTodoItems();
 }
 
 async function toggleTodoItem(id: number) {
   await todoStore.toggleTodo(id);
-  await todoStore.getAllTodoItems();
+  await getTodoItems();
 }
 
+async function getTodoItems() {
+  await todoStore.getAllTodoItemsByGroup(activeGroup.value);
+}
+
+watch(activeGroup, async () => {
+  await getTodoItems();
+});
+
 onMounted(async () => {
-  await todoStore.getAllTodoItems();
+  await getTodoItems();
   await groupStore.getAllGroupItems();
 });
 </script>
@@ -62,6 +77,13 @@ onMounted(async () => {
         </form>
         <div class="mt-5">
           <GroupItem
+            @click="activeGroup = 0"
+            :active="activeGroup === 0"
+            :item="{ name: 'Uncategorized', id: 0, todos: [] }"
+          />
+          <GroupItem
+            :active="activeGroup === group.id"
+            @click="activeGroup = group.id"
             v-for="group in groupStore.groups"
             :key="group.id"
             :item="group"
@@ -97,6 +119,12 @@ onMounted(async () => {
             @update="() => toggleTodoItem(todo.id)"
             @delete="() => deleteTodoItem(todo.id)"
           />
+          <p
+            v-if="todoStore.todos.length < 1"
+            class="text-gray-300 p-2 w-[25rem] my-2"
+          >
+            No todo item in this group
+          </p>
         </div>
       </article>
     </section>

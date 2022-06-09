@@ -14,7 +14,7 @@ class TodoService {
   }
 
   public async getTodosByGroup(
-    groupId: string
+    groupId: number
   ): Promise<AxiosResponse<Todo[]>> {
     return await $axios.get(this.path + `/group/${groupId}`);
   }

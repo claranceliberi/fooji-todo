@@ -25,7 +25,7 @@ function handleDelete() {
 </script>
 <template>
   <div
-    class="item flex items-center space-x-4 my-2 bg-gray-800 w-[25rem] px-2 py-2 rounded"
+    class="item flex items-center space-x-4 my-2 bg-gray-800 w-[25rem] p-2 rounded"
   >
     <div class="opacity-80">
       <TheCheckboxVue :checked="item.completed" @click="handleComplete" />

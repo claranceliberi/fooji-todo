@@ -25,6 +25,12 @@ export const useTodoStore = defineStore({
       this.todos = res.data;
       return res.data;
     },
+    async getAllTodoItemsByGroup(id: number) {
+      const res = await todoService.getTodosByGroup(id);
+
+      this.todos = res.data;
+      return res.data;
+    },
     async deleteTodo(id: number) {
       return await todoService.deleteTodo(id);
     },

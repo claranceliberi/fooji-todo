@@ -24,23 +24,29 @@ export class TodoService {
 
   findAllByGroup(groupdId: number): Promise<Todo[]> {
     if (groupdId == 0) {
-      console.log('-----------------------------------------------');
       return this.todoRepository
         .createQueryBuilder('todo')
         .where('todo.groupId IS NULL')
+        .orderBy('todo.created_on', 'ASC')
         .getMany();
     }
-    return this.todoRepository.find({ where: { group: { id: groupdId } } });
+    return this.todoRepository.find({
+      where: { group: { id: groupdId } },
+      order: { created_on: 'ASC' },
+    });
   }
 
-  async createTodo(_todo: CreateTodoDto): Promise<Todo> {
+  async createTodo(_todoDto: CreateTodoDto): Promise<Todo> {
     const todo = new Todo();
-    todo.name = _todo.name;
+    todo.name = _todoDto.name;
     todo.completed = false;
 
-    todo.group = await this.groupRepository.findOne({
-      where: { id: _todo.group_id },
-    });
+    if (_todoDto.groupId && _todoDto.groupId != 0) {
+      todo.group = await this.groupRepository.findOne({
+        where: { id: _todoDto.groupId },
+      });
+    }
+
     return this.todoRepository.save(todo);
   }
 

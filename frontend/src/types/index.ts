@@ -14,6 +14,7 @@ export interface Todo {
 
 export interface TodoInput {
   name: string;
+  groupId?: number;
 }
 export interface GroupInput {
   name: string;
