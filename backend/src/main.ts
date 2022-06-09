@@ -17,11 +17,17 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('todos', 'Todo items related endpoints')
     .addTag('groups', 'Todo group related endpoints')
+
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api/v1/docs', app, document);
+  SwaggerModule.setup('api/v1/docs', app, document, {
+    customSiteTitle: 'Todo App',
+    swaggerOptions: {
+      docExpansion: 'none',
+    },
+  });
 
   await app.listen(process.env.SERVER_PORT || 3031);
 }
