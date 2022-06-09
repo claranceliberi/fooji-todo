@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import TheWelcome from '@/components/TheWelcome.vue'
+import TodoItem from "../components/TodoItem.vue";
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+    <article>
+      <TodoItem></TodoItem>
+    </article>
   </main>
 </template>
