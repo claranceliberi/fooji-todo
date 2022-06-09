@@ -14,6 +14,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -51,7 +52,14 @@ export class GroupController {
     type: Group,
   })
   @ApiOperation({ summary: 'get all todo grup by id' })
+  @ApiParam({
+    name: 'id',
+    type: 'number',
+    example: 1,
+    description: 'id of group',
+  })
   async findById(@Res() response, @Param('id') id) {
+    console.log(id, '------------------------------');
     const group = await this.groupService.findOne(id);
     return response.status(HttpStatus.OK).json(group);
   }

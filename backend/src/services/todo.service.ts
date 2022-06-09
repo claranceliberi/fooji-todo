@@ -19,9 +19,7 @@ export class TodoService {
   }
 
   findOne(id: number): Promise<Todo> {
-    return this.todoRepository.findOne({
-      where: [{ id }],
-    });
+    return this.todoRepository.findOne({ where: { id: id } });
   }
 
   findAllByGroup(groupdId: number): Promise<Todo[]> {
