@@ -29,20 +29,19 @@ services:
       context: ./frontend
       dockerfile: ./Dockerfile
     volumes:
-      - ./frontend:/usr/src/app
+      - ./frontend:/usr/src/frontend
       - /usr/src/frontend/node_modules
     ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
-      - 9229:9229
-    command: npm run start:debug
+      - ${WEB_PORT}:${WEB_PORT}
+      - 9228:9228
     env_file:
       - .env
     networks:
       - webnet
     links:
-      - postgres
+      - app-dev
     depends_on:
-      - postgres
+      - app-dev
     restart: unless-stopped
   app-prod:
     container_name: api_prod
@@ -54,9 +53,9 @@ services:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - ${WEB_PORT}:${WEB_PORT}
+      - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
-    command: npm run serve
+    # command: npm run dev
     env_file:
       - .env
     networks:
@@ -64,7 +63,7 @@ services:
     links:
       - postgres
     depends_on:
-      - app-dev
+      - postgres
     restart: unless-stopped
   postgres:
     container_name: postgres
