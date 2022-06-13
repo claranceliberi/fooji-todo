@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(compression());
 
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3333',
   });
 
   app.setGlobalPrefix('api/v1');
