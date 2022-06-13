@@ -29,6 +29,12 @@ This is the fooji enginer task , this is simply a todo app
   2. run ` docker compose up -d frontend-dev` or ` docker-compose up -d frontend-dev` if you have outdated docker-compose
   3. Wow you now have everything up and running 🪄 check backend on `http://localhost:3030/api/v1/docs` and frontend on `http://localhost:3333/`
 
+### If the above method is not working 
+  1. I am assumming that you have Docker
+  2. run ` docker compose up -d app-dev` or ` docker-compose up -d app-dev` if you have outdated docker-compose
+  3. run frontend on `npm run dev` inside `frontend` directory
+  4. Wow you now have everything up and running 🪄 check backend on `http://localhost:3030/api/v1/docs` and frontend on `http://localhost:3333/`
+
 
   ### You don't have docker
   Thats somehow pretty hard but we can figure it out
